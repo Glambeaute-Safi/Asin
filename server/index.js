@@ -54,12 +54,10 @@ app.post("/scrape", async (req, res) => {
 });
 
 
-// Serve frontend static files from /build
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "server", "build")));
 
-// Fallback to index.html for any unknown route (React Router support)
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "server", "build", "index.html"));
 });
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
