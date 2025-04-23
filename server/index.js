@@ -9,7 +9,11 @@ const path = require("path"); // ⬅️ ADD this at the top if not already
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "build")));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 let currentASIN = null;
 
 // SSE endpoint to send current ASIN to frontend
@@ -54,11 +58,11 @@ app.post("/scrape", async (req, res) => {
 });
 
 
-app.use(express.static(path.join(__dirname, "build")));
+// app.use(express.static(path.join(__dirname, "build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
 });
